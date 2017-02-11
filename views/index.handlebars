@@ -1,0 +1,69 @@
+<div class="row">
+  <div id="header" class="col-md-12">
+    <img id="logo" src="/assets/images/CovingtonBurgerLogo.png">
+  </div>
+</div>
+
+<div id="burger_lists" class="row">
+  <div class="col-sm-5">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Available Burgers</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          {{#each burgers}} {{#unless this.devoured}}
+          <li>
+            {{this.burger_name}}
+            <form id="burgers_available" action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+              <input type="hidden" name="devoured" value="true">
+              <button type="submit">Devour It!</button>
+            </form>
+          </li>
+          {{/unless}} {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <div class="col-sm-5">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">Burgers Devoured</h3>
+        </div>
+        <div class="panel-body">
+          <ul>
+            {{#each burgers}} {{#if this.devoured}}
+            <li>
+              {{this.burger_name}}
+              <form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="false">
+              </form>
+            </li>
+            {{/if}} {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<div id="add_burger_box" class="row">
+  <div class="col-md-8">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add A Burger</h3>
+      </div>
+      <div class="panel-body">
+        <form class="create-update-form" action="burgers/create" method="POST">
+          <span id="add_burger" class="form-group">
+            <label for="ca">Burger Name:</label>
+              <input type="text" id="ca" name="burger_name">
+          </span>
+          <button type="submit">Add Burger</button>
+          </form>
+      </div> 
+    </div>
+  </div>
+</div>
+
